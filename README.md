@@ -1,15 +1,17 @@
 # Directus extension - M2M tags
 
-![](https://raw.githubusercontent.com/dimitrov-adrian/directus-extension-tags-m2m-interface/main/screenshot.gif)
+![](https://raw.githubusercontent.com/tmaguire/directus-extension-tags-m2m-interface/main/screenshot.gif)
 
 Use M2M relation with quick item referencing in tagging style.
+
+> Updated to fix issues with latest versions of Directus (merges pull requests 9 and 10 in original fork)
 
 ## Installation
 
 In your Directus installation root
 
 ```bash
-npm install directus-extension-tags-m2m-interface
+npm install @tmaguire/directus-extension-tags-m2m-interface
 ```
 
 Restart directus

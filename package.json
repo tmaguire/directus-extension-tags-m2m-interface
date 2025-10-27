@@ -1,19 +1,19 @@
 {
   "name": "directus-extension-tags-m2m-interface",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "author": {
-    "email": "dimitrovadrian+gh@gmail.com",
-    "name": "Adrian Dimitrov"
+    "email": "thomas@maguire.email",
+    "name": "Tom Maguire"
   },
   "license": "gpl-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dimitrov-adrian/directus-extension-tags-m2m-interface.git"
+    "url": "https://github.com/tmaguire/directus-extension-tags-m2m-interface.git"
   },
   "bugs": {
-    "url": "https://github.com/dimitrov-adrian/directus-extension-tags-m2m-interface/issues"
+    "url": "https://github.com/tmaguire/directus-extension-tags-m2m-interface/issues"
   },
-  "homepage": "https://github.com/dimitrov-adrian/directus-extension-tags-m2m-interface",
+  "homepage": "https://github.com/tmaguire/directus-extension-tags-m2m-interface",
   "keywords": [
     "directus",
     "directus-extension",
@@ -38,10 +38,12 @@
     "link": "directus-extension link"
   },
   "devDependencies": {
-    "@directus/extensions-sdk": "^9.22.4",
+    "@directus/extensions-sdk": "^9.24.0",
+    "@directus/shared": "^9.24.0",
+    "@types/lodash": "^4.17.20",
     "directus-codestyle": "https://github.com/dimitrov-adrian/directus-codestyle.git",
     "lodash": "^4.17.21",
-    "typescript": "^4.9.4"
+    "typescript": "^5.0.4"
   },
   "prettier": "directus-codestyle/prettier",
   "stylelint": {
@@ -52,5 +54,8 @@
     "parserOptions": {
       "sourceType": "module"
     }
+  },
+  "dependencies": {
+    "gql-query-builder": "^3.8.0"
   }
 }

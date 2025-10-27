@@ -36,7 +36,7 @@ export function useRelationM2M(collection: Ref<string>, field: Ref<string>, patc
 		const relations = relationsStore.getRelationsForField(collection.value, field.value);
 
 		const junction = relations.find(
-			(relation) =>
+			(relation: { related_collection: string; meta: { one_field: string; junction_field: any } }) =>
 				relation.related_collection === collection.value &&
 				relation.meta?.one_field === field.value &&
 				relation.meta.junction_field
@@ -45,7 +45,8 @@ export function useRelationM2M(collection: Ref<string>, field: Ref<string>, patc
 		if (!junction) return undefined;
 
 		const relation = relations.find(
-			(relation) => relation.collection === junction.collection && relation.field === junction.meta?.junction_field
+			(relation: { collection: any; field: any }) =>
+				relation.collection === junction.collection && relation.field === junction.meta?.junction_field
 		);
 
 		if (!relation) return undefined;
