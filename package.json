@@ -1,6 +1,6 @@
 {
 	"name": "@tmaguire/directus-extension-tags-m2m-interface",
-	"version": "0.9.0",
+	"version": "0.9.1",
 	"description": "![](https://raw.githubusercontent.com/tmaguire/directus-extension-tags-m2m-interface/main/screenshot.gif)",
 	"keywords": [
 		"directus",
