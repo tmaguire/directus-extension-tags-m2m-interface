@@ -386,7 +386,7 @@ function usePreviews(value: Ref<RelationItem[]>) {
 				limit: ids.length,
 				filter: {
 					value: { id: { _in: ids } },
-					type: 'game_tags_filter',
+					type: 'tags_filter',
 				},
 				sort: { value: [getSortingQuery(relationInfo.value!.junctionField.field).sort], list: [true], type: 'String' },
 			},
@@ -400,9 +400,9 @@ function usePreviews(value: Ref<RelationItem[]>) {
 			},
 		});
 
-		const game_tags = response?.data?.data?.game_tags;
-		if (game_tags && Array.isArray(game_tags)) {
-			items.value = [...game_tags, ...staged];
+		const tags = response?.data?.data?.tags;
+		if (tags && Array.isArray(tags)) {
+			items.value = [...tags, ...staged];
 		} else {
 			items.value = [...staged];
 		}
