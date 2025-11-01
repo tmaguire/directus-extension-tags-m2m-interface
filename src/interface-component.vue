@@ -386,7 +386,7 @@ function usePreviews(value: Ref<RelationItem[]>) {
 				limit: ids.length,
 				filter: {
 					value: { id: { _in: ids } },
-					type: `${relationInfo.value!.junctionPrimaryKeyField.collection}_tags_filter`,
+					type: `${relationInfo.value!.junctionPrimaryKeyField.collection}_filter`,
 				},
 				sort: { value: [getSortingQuery(relationInfo.value!.junctionField.field).sort], list: [true], type: 'String' },
 			},
