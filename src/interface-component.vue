@@ -103,7 +103,6 @@ import { Filter } from '@directus/shared/types';
 import { useApi, useStores } from '@directus/shared/composables';
 import { parseFilter, getEndpoint } from '@directus/shared/utils';
 import { useRelationM2M } from './use-relations';
-import * as gql from 'gql-query-builder';
 
 type RelationFK = string | number | BigInt;
 type RelationItem = RelationFK | Record<string, any>;
@@ -369,40 +368,21 @@ function usePreviews(value: Ref<RelationItem[]>) {
 		}
 
 		loading.value = true;
-
-		let fields = {};
-
-		fetchFields.forEach((field) => {
-			const jf = relationInfo.value!.junctionField.field;
-			if (!fields[jf]) fields[jf] = [];
-
-			fields[jf].push(field);
-		});
-
-		const queryObj = {
-			operation: relationInfo.value!.junctionCollection.collection,
-			fields: [relationInfo.value!.junctionPrimaryKeyField.field, fields],
-			variables: {
+		const response = await api.get(getEndpoint(relationInfo.value.junctionCollection.collection), {
+			params: {
+				fields: relationalFetchFields,
 				limit: ids.length,
 				filter: {
-					value: { id: { _in: ids } },
-					type: `${relationInfo.value!.junctionPrimaryKeyField.collection}_filter`,
+					id: {
+						_in: ids,
+					},
 				},
-				sort: { value: [getSortingQuery(relationInfo.value!.junctionField.field).sort], list: [true], type: 'String' },
-			},
-		};
-
-		const query = gql.query(queryObj);
-
-		const response = await api.post('/graphql', query, {
-			headers: {
-				'Content-Type': 'application/json',
+				...getSortingQuery(relationInfo.value.junctionField.field),
 			},
 		});
 
-		const tags = response?.data?.data?.tags;
-		if (tags && Array.isArray(tags)) {
-			items.value = [...tags, ...staged];
+		if (response?.data?.data && Array.isArray(response.data.data)) {
+			items.value = [...response.data.data, ...staged];
 		} else {
 			items.value = [...staged];
 		}
@@ -411,8 +391,8 @@ function usePreviews(value: Ref<RelationItem[]>) {
 	}
 }
 
-function getSortingQuery(path?: string): { sort: string } {
-	const fieldName = props.sortField ? props.sortField : relationInfo.value!.relatedPrimaryKeyField.field;
+function getSortingQuery(path?: string): Object {
+	const fieldName = props.sortField ? props.sortField : relationInfo.value.relatedPrimaryKeyField.field;
 	const field = path ? `${path}.${fieldName}` : fieldName;
 	return {
 		sort: props.sortDirection === 'desc' ? `-${field}` : field,
